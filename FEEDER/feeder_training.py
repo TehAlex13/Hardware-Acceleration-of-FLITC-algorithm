@@ -38,7 +38,6 @@ Duration_path = directory + r'\Duration_FFNN.joblib'
 best_models_loc = results_dic + r'\best_cwt_feeder_id_not_full_v1.csv'
 
 # Change load file for different dataset
-# I_CWT = joblib.load(I_CWT_path)
 I_CWT = joblib.load(I_CWT_not_full_path)
 Feeder_Output = joblib.load(Class_path)
 Rs = joblib.load(Rs_path)
