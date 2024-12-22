@@ -9,9 +9,7 @@ Feeders Fault Detection: An FFNN model is trained with a dedicated dataset to de
 A validation dataset is used to evaluate the model's accuracy.
 
 Three quantization methods were tested to optimize model size and processing latency:
--TensorFlow-Lite Dynamic Range Quantization
--TensorFlow-Lite Full Integer Quantization
--Vitis-AI TensorFlow-2 Quantization
+TensorFlow-Lite Dynamic Range, TensorFlow-Lite Full Integer, Vitis-AI TensorFlow-2
 
 FPGA Implementation: The quantized models are deployed on the Xilinx Zynq UltraScale+ MPSoC ZCU104 FPGA platform.
 Execution leverages the Deep Learning Processing Unit (DPU).
