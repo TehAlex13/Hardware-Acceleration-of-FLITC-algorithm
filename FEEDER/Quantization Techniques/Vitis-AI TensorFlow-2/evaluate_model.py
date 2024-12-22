@@ -89,13 +89,7 @@ def evaluate_model(dataset, output, rs, dur):
     
     # Φόρτωση του quantized μοντέλου από το αρχείο 'quantized_model.h5'
     quantized_model = tf.keras.models.load_model('quantized_model_1.h5')
-    #quantized_model = tf.keras.models.load_model('model_1.h5')
 
-    # Καθορισμός της συνάρτησης απώλειας και των μετρικών για τον υπολογισμό της απόδοσης του μοντέλου
-    """quantized_model.compile(loss='sparse_categorical_crossentropy',
-                      metrics=['sparse_top_k_categorical_accuracy'])"""
-
-    
     x_trn, x_tst, y_trn, y_tst, rs_trn, rs_tst, dur_trn, dur_tst = shuffle_dataset(I_CWT, Feeder_Output, Rs, Duration)
    
     print("\n-----ACCURACY-----\n")
@@ -108,27 +102,13 @@ def evaluate_model(dataset, output, rs, dur):
         digit = np.argmax(predictions)
         prediction_digits.append(digit)
     
-    #print(prediction_digits)
-    
     digits2 = []
     for i in range(len(y_tst)):  
         digit2 = np.argmax(y_tst[i])
         digits2.append(digit2)
-
-    #print(digits2)
     
     accuracy = accuracy_score(digits2, prediction_digits)
 
     print("Accuracy:", accuracy)
-    
-
-    """results = quantized_model.evaluate(x_tst,y_tst)
-
-    # Display evaluation results
-    accuracy = results[1] * 100
-    loss = results[0] * 100
-
-    print(f"Accuracy: {accuracy:.2f}%")
-    print(f"Loss: {loss:.2f}%")"""
 
 evaluate_model(I_CWT, Feeder_Output, Rs, Duration)
