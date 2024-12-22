@@ -79,6 +79,7 @@ x_trn, x_tst, y_trn, y_tst, rs_trn, rs_tst, dur_trn, dur_tst = shuffle_dataset(I
 model_path = r'/workspace/FEEDER/Models/quantized_model.tflite' 
 interpreter = tf.lite.Interpreter(model_path=str(model_path))
 interpreter.allocate_tensors()
+
 def evaluate_model(interpreter, x_tst, y_tst):
     input_index = interpreter.get_input_details()[0]["index"]
     output_index = interpreter.get_output_details()[0]["index"]
@@ -86,6 +87,7 @@ def evaluate_model(interpreter, x_tst, y_tst):
     # Run predictions on every image in the "test" dataset.
     prediction_digits = []
     digits2 = []
+  
     for test_image in x_tst:
         # Pre-processing: add batch dimension and convert to float32 to match with
         # the model's input data format.
