@@ -7,7 +7,6 @@ Fault types are classified into eleven categories, and the fault location is est
 
 Feeders Fault Detection: An FFNN model is trained with a dedicated dataset to detect faulty feeders.
 A validation dataset is used to evaluate the model's accuracy.
-Quantization Techniques:
 
 Three quantization methods were tested to optimize model size and processing latency:
 -TensorFlow-Lite Dynamic Range Quantization
