@@ -1,9 +1,6 @@
 # Hardware-Acceleration-of-FLITC-algorithm
 
-This repository contains the implementation and hardware acceleration of a machine-learning model for fault detection in power distribution grids. The project focuses on deploying the Fault Location, Identification, and Type Classification (FLITC) algorithm on hardware devices to improve execution speed with minimal accuracy loss.
-
-The algorithm employs Convolutional Neural Networks (CNNs) to detect faulty feeders and branches.
-Fault types are classified into eleven categories, and the fault location is estimated.
+This repository contains the implementation and hardware acceleration of a machine-learning model for fault detection in power distribution grids. The project focuses on deploying the Fault Location, Identification, and Type Classification (FLITC) algorithm on hardware devices to improve execution speed with minimal accuracy loss. The algorithm employs Convolutional Neural Networks (CNNs) to detect faulty feeders and branches. Fault types are classified into eleven categories, and the fault location is estimated.
 
 Feeders Fault Detection: An FFNN model is trained with a dedicated dataset to detect faulty feeders.
 A validation dataset is used to evaluate the model's accuracy.
