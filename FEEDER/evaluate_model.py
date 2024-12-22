@@ -5,17 +5,13 @@ from sklearn.utils import shuffle
 from keras.models import load_model
 from keras.callbacks import EarlyStopping
 import random
-
-from tensorflow_model_optimization.quantization.keras import vitis_quantize
 from sklearn.model_selection import train_test_split
-
 
 # Load data
 I_CWT_path = r'/workspace/FEEDER/Models/I_CWT.joblib'
 Class_path = r'/workspace/FEEDER/Models/Feeder_Output_4_Outputs.joblib'
 Rs_path = r'/workspace/FEEDER/Models/Rs_FFNN.joblib'
 Duration_path = r'/workspace/FEEDER/Models/Duration_FFNN.joblib'
-
 
 # Change load file for different dataset
 I_CWT = joblib.load(I_CWT_path)
@@ -84,18 +80,11 @@ def shuffle_dataset(dataset, output_class, rs, dur):
     return x_trn, x_tst, y_trn, y_tst, rs_trn, rs_tst, dur_trn, dur_tst
 
 
-
 def evaluate_model(dataset, output, rs, dur):
     
-    # Φόρτωση του quantized μοντέλου από το αρχείο 'quantized_model.h5'
-    quantized_model = tf.keras.models.load_model('quantized_model_1.h5')
-    #quantized_model = tf.keras.models.load_model('model_1.h5')
+    # Φόρτωση του μοντέλου
+    model_1 = tf.keras.models.load_model('model_1.h5')
 
-    # Καθορισμός της συνάρτησης απώλειας και των μετρικών για τον υπολογισμό της απόδοσης του μοντέλου
-    """quantized_model.compile(loss='sparse_categorical_crossentropy',
-                      metrics=['sparse_top_k_categorical_accuracy'])"""
-
-    
     x_trn, x_tst, y_trn, y_tst, rs_trn, rs_tst, dur_trn, dur_tst = shuffle_dataset(I_CWT, Feeder_Output, Rs, Duration)
    
     print("\n-----ACCURACY-----\n")
@@ -104,31 +93,17 @@ def evaluate_model(dataset, output, rs, dur):
     prediction_digits = []
     for test_image in x_tst:
         test_image = np.expand_dims(test_image, axis=0)
-        predictions = quantized_model.predict(test_image)
+        predictions = model_1.predict(test_image)
         digit = np.argmax(predictions)
         prediction_digits.append(digit)
-    
-    #print(prediction_digits)
     
     digits2 = []
     for i in range(len(y_tst)):  
         digit2 = np.argmax(y_tst[i])
         digits2.append(digit2)
-
-    #print(digits2)
     
     accuracy = accuracy_score(digits2, prediction_digits)
 
     print("Accuracy:", accuracy)
-    
-
-    """results = quantized_model.evaluate(x_tst,y_tst)
-
-    # Display evaluation results
-    accuracy = results[1] * 100
-    loss = results[0] * 100
-
-    print(f"Accuracy: {accuracy:.2f}%")
-    print(f"Loss: {loss:.2f}%")"""
 
 evaluate_model(I_CWT, Feeder_Output, Rs, Duration)
